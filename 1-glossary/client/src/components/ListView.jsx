@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Search from './Search.jsx';
+import ListEntry from './ListEntry.jsx';
 
 
-const ListView = () => (
-  <div>List</div>
+const ListView = ( {list} ) => (
+  <div>
+    {list.map((entry) => (
+      <div key={entry._id}>
+      <ListEntry entry={entry}/>
+      </div>
+    ))}
+  </div>
 );
 
 
