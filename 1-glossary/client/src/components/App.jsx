@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './Search.jsx';
 import Form from './Form.jsx';
 import ListView from './ListView.jsx';
-
+import axios from 'axios';
 
 const App = () => {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([
+    {
+      _id: 482983,
+      word: 'hello',
+      definition: 'asdbnjkaf'
+    },
+    {
+      _id: 2383483,
+      word: 'bet',
+      definition: 'to gamble'
+    }
+  ]);
   const [search, setSearch] = useState('');
 
-  // useEffect(() => {
-  //   // get request to the database
-  //   // upon response, setList with array of data
-  // }, []);
+  useEffect(() => {
+    // get request to the database
+    axios.get('/glossary')
+      .then((response) => {
+        setList(response.data);
+      })
+    // upon response, setList with array of data
+  }, []);
 
   const searchHandler = () => {
     // create searchedArray
@@ -26,7 +41,7 @@ const App = () => {
       <div>Hello for now</div>
       <Search searchHandler={searchHandler} />
       <Form />
-      <ListView />
+      <ListView list={list}/>
     </div>
   )
 };
