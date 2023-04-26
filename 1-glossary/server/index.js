@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const { save, getAll } = require('./db');
+const { save, getAll, remove } = require('./db');
 
 const app = express();
 app.use(express.json());
@@ -37,7 +37,15 @@ app.post('/glossary', (req, res) => {
 
 app.put('/glossary');
 
-app.delete('/glossary');
+app.delete('/glossary', (req, res) => {
+  remove(req.body.word)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+});
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
