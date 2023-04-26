@@ -19,17 +19,18 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
  */
 app.get('/glossary', (req, res) => {
   // invoke getAll from models in db.js
-  getAll()
+  return getAll()
     .then((response) => {
-      console.log("GET ALL RESPONSE:", response);
       res.status(200).send(response);
+    })
+    .catch((err) => {
+      console.log(err);
     })
 });
 
 app.post('/glossary', (req, res) => {
   save(req.body.word, req.body.definition)
     .then((response) => {
-    console.log('THE RESPONSE:', response);
     res.status(201).send(response)
     })
     .catch((err) => console.log(err))
