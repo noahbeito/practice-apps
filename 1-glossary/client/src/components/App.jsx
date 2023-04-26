@@ -34,7 +34,7 @@ const App = () => {
       <div>Hello for now</div>
       <Search searchHandler={searchHandler} />
       <Form renderList={renderList}/>
-      <ListView list={list}/>
+      <ListView list={list} renderList={renderList}/>
     </div>
   )
 };
