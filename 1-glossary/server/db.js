@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-console.log('DB NAME', process.env.DB_NAME);
 // 1. Use mongoose to establish a connection to MongoDB
 mongoose.connect(`mongodb://localhost/${process.env.DB_NAME}`);
 // 2. Set up any schema and models needed by the app
