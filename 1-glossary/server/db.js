@@ -19,9 +19,6 @@ const save = (word, definition) => {
     new: true,
     upsert: true
   })
-  .then(() => {
-    return getAll()
-  });
 };
 
 const getAll = () => {
@@ -30,7 +27,12 @@ const getAll = () => {
       return response;
     });
 }
+
+const remove = (word) => {
+  return Entry.findOneAndDelete({word: word})
+}
 // 3. Export the models
 module.exports.save = save;
 module.exports.getAll = getAll;
+module.exports.remove = remove;
 // 4. Import the models into any modules that need them
