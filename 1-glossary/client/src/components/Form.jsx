@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const Form = () => {
+const Form = ({ renderList }) => {
   const [word, setWord] = useState('');
   const [definition, setDefinition] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (word, definition) => {
     // send an axios POST request to our server with word & definition
+    axios.post('/glossary', {
+      word: word,
+      definition: definition
+    })
+    .then(() => {
+      return axios.get('/glossary')
+    })
+    .then((response) => {
+      renderList(response.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   return (
@@ -19,7 +33,7 @@ const Form = () => {
       Definition:
       <input type="text" onChange={(e) => setDefinition(e.target.value)}></input>
     </label>
-    <button onClick={() => handleSubmit()}>submit</button>
+    <button onClick={() => handleSubmit(word, definition)}>submit</button>
   </div>
   )
 }
