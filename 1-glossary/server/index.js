@@ -18,8 +18,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
  *
  */
 app.get('/glossary', (req, res) => {
-  // invoke getAll from models in db.js
-  return getAll()
+  getAll()
     .then((response) => {
       res.status(200).send(response);
     })
