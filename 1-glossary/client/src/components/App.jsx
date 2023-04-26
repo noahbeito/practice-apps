@@ -5,18 +5,7 @@ import ListView from './ListView.jsx';
 import axios from 'axios';
 
 const App = () => {
-  const [list, setList] = useState([
-    {
-      _id: 482983,
-      word: 'hello',
-      definition: 'asdbnjkaf'
-    },
-    {
-      _id: 2383483,
-      word: 'bet',
-      definition: 'to gamble'
-    }
-  ]);
+  const [list, setList] = useState([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -36,11 +25,15 @@ const App = () => {
     // setSearch(searchedArray)
   }
 
+  const renderList = (newList) => {
+    setList(newList);
+  }
+
   return (
     <div>
       <div>Hello for now</div>
       <Search searchHandler={searchHandler} />
-      <Form />
+      <Form renderList={renderList}/>
       <ListView list={list}/>
     </div>
   )
