@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const { save, getAll, remove } = require('./db');
+const { save, getAll, remove, edit } = require('./db');
 
 const app = express();
 app.use(express.json());
@@ -29,13 +29,23 @@ app.get('/glossary', (req, res) => {
 
 app.post('/glossary', (req, res) => {
   save(req.body.word, req.body.definition)
-    .then((response) => {
-    res.status(201).send(response)
+    .then(() => {
+    res.status(201).send();
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+    })
 });
 
-app.put('/glossary');
+app.put('/glossary', (req, res) => {
+  edit(req.body._id, req.body.word, req.body.definition)
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
 
 app.delete('/glossary', (req, res) => {
   remove(req.body.word)
