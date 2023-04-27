@@ -24,9 +24,6 @@ const ListEntry = ({entry, renderList}) => {
   }
 
   const handleEdit = (id, word, definition) => {
-    // axios PUT request
-      // honestly the way we have set up the post request that might work too lets try that first
-
     axios.put('/glossary', {
       _id: id,
       word: word,
