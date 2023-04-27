@@ -15,7 +15,11 @@ const Form = ({ renderList }) => {
       return axios.get('/glossary')
     })
     .then((response) => {
-      renderList(response.data)
+      renderList(response.data);
+    })
+    .then(() => {
+      setWord('');
+      setDefinition('');
     })
     .catch((err) => {
       console.log(err)
@@ -23,7 +27,7 @@ const Form = ({ renderList }) => {
   }
 
   return (
-  <div>
+  <form>
     <label>
       Word:
       <input type="text" onChange={(e) => setWord(e.target.value)}></input>
@@ -34,7 +38,7 @@ const Form = ({ renderList }) => {
       <input type="text" onChange={(e) => setDefinition(e.target.value)}></input>
     </label>
     <button onClick={() => handleSubmit(word, definition)}>submit</button>
-  </div>
+  </form>
   )
 }
 
