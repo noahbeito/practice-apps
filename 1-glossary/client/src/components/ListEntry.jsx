@@ -23,11 +23,12 @@ const ListEntry = ({entry, renderList}) => {
       })
   }
 
-  const handleEdit = (word, definition) => {
+  const handleEdit = (id, word, definition) => {
     // axios PUT request
       // honestly the way we have set up the post request that might work too lets try that first
 
-    axios.post('/glossary', {
+    axios.put('/glossary', {
+      _id: id,
       word: word,
       definition: definition
     })
@@ -60,7 +61,7 @@ const ListEntry = ({entry, renderList}) => {
         <input type="text" onChange={(e) => {setWordEdit(e.target.value)}}defaultValue={entry.word}></input>
         <br />
         <input type="text" onChange={(e) => {setDefinitionEdit(e.target.value)}}defaultValue={entry.definition}></input>
-        <button onClick={() => {handleEdit(wordEdit, definitionEdit)}}>Submit</button>
+        <button onClick={() => {handleEdit(entry._id, wordEdit, definitionEdit)}}>Submit</button>
         <button onClick={() => {setEdit(false)}}>Cancel</button>
       </div>
     )
