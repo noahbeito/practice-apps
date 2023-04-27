@@ -6,7 +6,6 @@ const Form = ({ renderList }) => {
   const [definition, setDefinition] = useState('');
 
   const handleSubmit = (word, definition) => {
-    // send an axios POST request to our server with word & definition
     axios.post('/glossary', {
       word: word,
       definition: definition
@@ -16,6 +15,9 @@ const Form = ({ renderList }) => {
     })
     .then((response) => {
       renderList(response.data);
+      // curious as to why calling set word
+      // and set definition here doenst work
+      // to reset the input fields
     })
     .then(() => {
       setWord('');
