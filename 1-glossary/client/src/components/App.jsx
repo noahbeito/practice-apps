@@ -46,7 +46,7 @@ const App = () => {
 
   return (
     <div>
-      <div>Hello for now</div>
+      <h1>Glossary</h1>
       <Search searchHandler={searchHandler} />
       <Form renderList={renderList}/>
       <ListView list={showList()} renderList={renderList}/>
