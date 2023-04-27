@@ -61,8 +61,8 @@ const ListEntry = ({entry, renderList}) => {
         <input type="text" onChange={(e) => {setWordEdit(e.target.value)}}defaultValue={entry.word}></input>
         <br />
         <input type="text" onChange={(e) => {setDefinitionEdit(e.target.value)}}defaultValue={entry.definition}></input>
-        <button onClick={() => {handleEdit(entry._id, wordEdit, definitionEdit)}}>Submit</button>
-        <button onClick={() => {setEdit(false)}}>Cancel</button>
+        <button onClick={() => {handleEdit(entry._id, wordEdit, definitionEdit)}}>✔</button>
+        <button onClick={() => {setEdit(false)}}>✘</button>
       </div>
     )
   }

@@ -39,7 +39,7 @@ const Form = ({ renderList }) => {
       Definition:
       <input type="text" onChange={(e) => setDefinition(e.target.value)}></input>
     </label>
-    <button onClick={() => handleSubmit(word, definition)}>submit</button>
+    <button onClick={() => handleSubmit(word, definition)}>Submit</button>
   </form>
   )
 }
