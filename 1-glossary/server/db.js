@@ -12,8 +12,8 @@ const Entry = mongoose.model('Entry', schema);
 
 
 const save = (word, definition) => {
-  const filter = { word: word};
-  const update = { definition: definition};
+  const filter = { word: word };
+  const update = { definition: definition };
 
   return Entry.findOneAndUpdate(filter, update, {
     new: true,
@@ -31,8 +31,18 @@ const getAll = () => {
 const remove = (word) => {
   return Entry.findOneAndDelete({word: word})
 }
+
+const edit = (id, word, definition) => {
+  const filter = { _id: id };
+  const update = {
+    word: word,
+    definition: definition
+  }
+  return Entry.findOneAndUpdate(filter, update)
+}
 // 3. Export the models
 module.exports.save = save;
 module.exports.getAll = getAll;
 module.exports.remove = remove;
+module.exports.edit = edit;
 // 4. Import the models into any modules that need them
