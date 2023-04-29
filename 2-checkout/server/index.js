@@ -5,7 +5,7 @@ const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
 
 // import models methods
-const { save, update } = require("./models");
+const { save, updateF2, updateF3 } = require("./models");
 
 // Establishes connection to the database on server start
 const db = require("./db");
@@ -51,7 +51,7 @@ app.post('/responses', (req, res) => {
 // invoke update method from models
  // it will need session_id and new data to add
 // upon success, send 200 code to client.
-app.put('/responses', (req, res) => {
+app.put('/responses/F2', (req, res) => {
   let session_id = req.session_id;
   let ship1 = req.body.ship1;
   let ship2 = req.body.ship2;
@@ -60,7 +60,7 @@ app.put('/responses', (req, res) => {
   let zip = req.body.zip;
   let phone_number = req.body.phone_number;
 
-  update(ship1, ship2, city, state, zip, phone_number, session_id)
+  updateF2(session_id, ship1, ship2, city, state, zip, phone_number)
     .then(() => {
       console.log('successfully upated address & number')
     })
@@ -70,6 +70,26 @@ app.put('/responses', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     })
+})
+
+app.put('/responses/F3', (req, res) => {
+  // get relevant data from req body
+  let session_id = req.session_id;
+  let cc_number = req.body.cc_number;
+  let exp_date = req.body.exp_date;
+  let cvv = req.body.cvv;
+  let billing_zip = req.body.billing_zip;
+
+  updateF3(session_id, cc_number, exp_date, cvv, billing_zip)
+  .then(() => {
+    console.log('successfully updated card info');
+  })
+  .then(() => {
+    res.status(200).send();
+  })
+  .catch((err) => {
+    res.status(500).send(err);
+  })
 })
 
 app.get('/responses', (req, res) => {
