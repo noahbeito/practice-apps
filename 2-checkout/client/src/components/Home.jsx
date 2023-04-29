@@ -1,12 +1,9 @@
 import React from 'react';
 
-const Home = ( { setView }) => {
+const Home = ( { handleSetView }) => {
 
-  const handleClick = () => {
-    setView('F1');
-  }
   return (
-    <button onClick={() => {handleClick()}}>Checkout</button>
+    <button onClick={() => {handleSetView('F1')}}>Checkout</button>
   )
 };
 

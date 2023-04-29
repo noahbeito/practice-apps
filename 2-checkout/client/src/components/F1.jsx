@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const F1 = ( {setView} ) => {
+const F1 = ( {handleSetView} ) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -12,19 +13,31 @@ const F1 = ( {setView} ) => {
     // they cant type in all 3 at the same time... or can they
     if (input === 'name') {
       setName(value);
-    } else if (input === 'email') {
-      setName(value);
+    } if (input === 'email') {
+      setEmail(value);
     } else if (input === 'password') {
-      setName(value);
+      setPassword(value);
     }
 
   }
 
   const handleClick = () => {
     // handle next button click
+    console.log('NAME: ', name);
+    console.log('EMAIL: ', email);
+    console.log('PASSWORD: ', password);
+
     // should send post request to server with form data
-    // upon response (then)
-    // set state to F2
+    axios.post('/responses', {
+      name: name,
+      email: email,
+      password: password
+    })
+    .then(() => {
+      // upon response (then)
+      // set state to F2
+      handleSetView('F2');
+    })
   }
 
   return (
@@ -40,7 +53,8 @@ const F1 = ( {setView} ) => {
       <label> Password:
         <input type="text" onChange={(e) => {handleChange('password', e.target.value)}}></input>
       </label>
-      <button>Next</button>
+      <br />
+      <button onClick={() => {handleClick()}}>Next</button>
     </div>
 
   )
