@@ -10,7 +10,7 @@ const save = (session_id, name, email, password) => {
   )
 }
 
-const update = (ship1, ship2, city, state, zip, phone_number, session_id) => {
+const updateF2 = (session_id, ship1, ship2, city, state, zip, phone_number) => {
   // find by session_id or id
     // then add data to relevant fields
   return db.queryAsync(
@@ -26,6 +26,18 @@ const update = (ship1, ship2, city, state, zip, phone_number, session_id) => {
   )
 }
 
+const updateF3 = (session_id, cc_number, exp_date, cvv, billing_zip) => {
+  return db.queryAsync(
+    `UPDATE responses
+     SET cc_number = ?,
+         cc_expire_date = ?,
+         cvv = ?,
+         billing_zip = ?
+     WHERE session_id = ?`,
+     [cc_number, exp_date, cvv, billing_zip, session_id]
+  )
+}
+
 const getAll = () => {
   // get all data stored at session id or id
   // return data
@@ -33,4 +45,5 @@ const getAll = () => {
 
 module.exports.save = save;
 module.exports.getAll = getAll;
-module.exports.update = update;
+module.exports.updateF2 = updateF2;
+module.exports.updateF3 = updateF3;
