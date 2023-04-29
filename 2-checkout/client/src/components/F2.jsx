@@ -12,7 +12,7 @@ const F2 = ({ handleSetView }) => {
 
   const handleClick = () => {
 
-    axios.put('/responses', {
+    axios.put('/responses/F2', {
       ship1: ship1,
       ship2: ship2,
       city: city,
