@@ -4,9 +4,11 @@ const path = require("path");
 const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
 
+// import models methods
+const { save, update } = require("./models");
+
 // Establishes connection to the database on server start
 const db = require("./db");
-// console.log('DB: ', db);
 
 const app = express();
 
@@ -32,22 +34,42 @@ app.use(express.json());
 
 app.post('/responses', (req, res) => {
   // invoke save method from models
-  // we want to pass along relevant data
-  // maybe easiest to send data over in an object
-  // and then we can handle that data in the model???? or here
-  // id like to avoid 3 different save methods
-  // jk post will only be for F1 submission
-  // then put requests for F2 and F3
+  let session_id = req.session_id;
+  let name = req.body.name;
+  let email = req.body.email;
+  let password = req.body.password;
 
-  // then (upon response) send the client
-  // status code 201
+  save(session_id, name, email, password)
+   .then((response) => {
+     res.status(201).send();
+   })
+   .catch((err) => {
+    res.status(500).send('error saving data');
+   })
 })
 
+// invoke update method from models
+ // it will need session_id and new data to add
+// upon success, send 200 code to client.
 app.put('/responses', (req, res) => {
-  // invoke update method from models
-   // it will need session_id and new data to add
+  let session_id = req.session_id;
+  let ship1 = req.body.ship1;
+  let ship2 = req.body.ship2;
+  let city = req.body.city;
+  let state = req.body.state;
+  let zip = req.body.zip;
+  let phone_number = req.body.phone_number;
 
-  // upon success, send 200 code to client.
+  update(ship1, ship2, city, state, zip, phone_number, session_id)
+    .then(() => {
+      console.log('successfully upated address & number')
+    })
+    .then(() => {
+      res.status(200).send();
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    })
 })
 
 app.get('/responses', (req, res) => {
