@@ -5,7 +5,7 @@ const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
 
 // import models methods
-const { save, updateF2, updateF3 } = require("./models");
+const { save, updateF2, updateF3, getAll } = require("./models");
 
 // Establishes connection to the database on server start
 const db = require("./db");
@@ -94,8 +94,16 @@ app.put('/responses/F3', (req, res) => {
 
 app.get('/responses', (req, res) => {
   // invoke getAll from models
+  getAll(req.session_id)
   // then (upon response) repond to the client with
+  .then((response) => {
+    console.log('RESPONSE IN INDEX.JS: ', response[0][0]);
+    res.status(200).send(response[0][0]);
+  })
   // 200 status code and the response data
+  .catch((err) => {
+    response.status(500).send(err);
+  })
   // ** check formatting of data
 })
 
