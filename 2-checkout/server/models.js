@@ -38,9 +38,11 @@ const updateF3 = (session_id, cc_number, exp_date, cvv, billing_zip) => {
   )
 }
 
-const getAll = () => {
-  // get all data stored at session id or id
-  // return data
+const getAll = (session_id) => {
+  return db.queryAsync(
+    `SELECT * FROM responses WHERE session_id = ?`,
+    [session_id]
+  )
 }
 
 module.exports.save = save;
